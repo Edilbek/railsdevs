@@ -22,22 +22,21 @@
 
   <tbody>
     <% @jobs.each do |job| %>
-      <tr>
-        <td><%= job.title %></td>
-        <td><%= job.link_to_apply %></td>
-        <td><%= job.description %></td>
-        <td><%= job.company_name %></td>
-        <td><%= job.company_website %></td>
-        <td><%= job.company_description %></td>
-        <td><%= job.role_type %></td>
-        <td><%= job.compensation_range %></td>
-        <td><%= job.remote %></td>
-        <td><%= job.years_of_experience %></td>
-        <td><%= job.user_id %></td>
-        <td><%= link_to 'Show', job %></td>
-        <td><%= link_to 'Edit', edit_job_path(job) %></td>
-        <td><%= link_to 'Destroy', job, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+    <tr>
+      <td><%= job.title %></td>
+      <td><%= job.link_to_apply %></td>
+      <td><%= job.description %></td>
+      <td><%= job.company_name %></td>
+      <td><%= job.company_website %></td>
+      <td><%= job.company_description %></td>
+      <td><%= job.compensation_range %></td>
+      <td><%= job.remote %></td>
+      <td><%= job.years_of_experience %></td>
+      <td><%= job.user_id %></td>
+      <td><%= link_to 'Show', job %></td>
+      <td><%= link_to 'Edit', edit_job_path(job) %></td>
+      <td><%= link_to 'Destroy', job, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    </tr>
     <% end %>
   </tbody>
 </table>
