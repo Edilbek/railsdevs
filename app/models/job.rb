@@ -36,12 +36,19 @@
 class Job < ApplicationRecord
   extend FriendlyId
 
-  friendly_id :slug_condidates, use: %i[slugged finder]
+  friendly_id :slug_condidates, use: %i[slugged finders]
 
+  # relations
   belongs_to :user
   has_rich_text :description
   has_rich_text :company_description
   has_one_attached :company_logo
+
+  # scopes
+  scope :desc, -> { order(created_at: :desc) }
+  scope :pending, -> { where(status: JOB_STATUSES[:pending]) }
+  scope :published, -> { where(status: JOB_STATUSES[:published]) }
+  scope :archived, -> { where(status: JOB_STATUSES[:archived]) }
 
   # constants
   COMPENSATION_TYPES = %w[Contract Full-time].freeze
@@ -69,7 +76,7 @@ class Job < ApplicationRecord
   ].freeze
 
   # Job::JOB_STATUSES[:pending]
-  JOS_STATUSES = {
+  JOB_STATUSES = {
     pending: 'pending',
     published: 'published',
     archived: 'archived'
@@ -86,7 +93,7 @@ class Job < ApplicationRecord
   YEARS_OF_EXPERIENCE_RANGE = ['1', '2', '3', '4', '5', '6', '8', '9', '10', 'more than 10'].freeze
 
   def slug_condidates
-    [:title, %i[title condidates]]
+    [:title, %i[title company_name]]
   end
 
   def pending?
