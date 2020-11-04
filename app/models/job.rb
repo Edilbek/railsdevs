@@ -36,7 +36,7 @@
 class Job < ApplicationRecord
   extend FriendlyId
 
-  friendly_id :title, use: :slugged
+  friendly_id :slug_condidates, use: %i[slugged finder]
 
   belongs_to :user
   has_rich_text :description
@@ -83,16 +83,22 @@ class Job < ApplicationRecord
     'more than 100'
   ].freeze
 
+  YEARS_OF_EXPERIENCE_RANGE = ['1', '2', '3', '4', '5', '6', '8', '9', '10', 'more than 10'].freeze
+
+  def slug_condidates
+    [:title, %i[title condidates]]
+  end
+
   def pending?
-    self.status == Job::JOB_STATUSES[:pending]
+    status == Job::JOB_STATUSES[:pending]
   end
 
   def published?
-    self.status == Job::JOB_STATUSES[:published]
+    status == Job::JOB_STATUSES[:published]
   end
 
   def archived?
-    self.status == Job::JOB_STATUSES[:archived]
+    status == Job::JOB_STATUSES[:archived]
   end
 
   def should_generate_friendly_id?
